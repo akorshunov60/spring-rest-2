@@ -1,42 +1,37 @@
 package com.example.springrest2.controller;
 
 import com.example.springrest2.component.Product;
-import com.example.springrest2.repository.ProductRepository;
+import com.example.springrest2.controller.dto.ProductDto;
+import com.example.springrest2.service.impl.ProductSeviceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NoResultException;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("products")
 public class ProductController {
 
-    private final ProductRepository pr;
+    private final ProductSeviceImpl productService;
 
-    public ProductController(ProductRepository pr) {
-        this.pr = pr;
+    @GetMapping
+    public List<ProductDto> findAllProducts() {
+        return productService.findAllProducts();
     }
 
     @GetMapping(value = "/{id}")
-    public Product getProductById (@PathVariable Long id) {
-        return pr.findById(id).orElseThrow(() ->
-                new NoResultException("Товар с указанным id (" + id + ") не существует!"));
-    }
-
-    @GetMapping(value = "/")
-    public List<Product> getAllProducts () {
-        return pr.findAll();
+    public ProductDto findProductById(@PathVariable Long id) {
+        return productService.findProductById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/")
-    public Product saveProduct(Product product) {
-        return pr.save(product);
-    }
+    @PutMapping
+    public Product addUser(@RequestBody Product product) { return productService.addProduct(product); }
 
-    @GetMapping(value = "/delete/{id}")
-    public void deleteProductById (@PathVariable Long id) {
-        pr.deleteById(id);
+    @DeleteMapping(value = "/del/{id}")
+    public void deleteProductsById(@PathVariable Long id) {
+        productService.deleteProductById(id);
     }
 }

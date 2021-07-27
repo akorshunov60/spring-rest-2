@@ -9,16 +9,14 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
 
-    //    @Mapping(source = "name", target = "name")
+    UserMapper USER_MAPPER = Mappers.getMapper(UserMapper.class);
+
     User toUser(UserDto userDto);
 
-    //При наличии аннотаций Mapping на методе toProduct, аннотация InheritInverseConfiguration будет производить обратную обработку этих правил.
-    //В отсутствии Mapping использовать InheritInverseConfiguration не обязательно
-//    @InheritInverseConfiguration
     UserDto fromUser(User user);
 
-    List<User> toUsers(List<UserDto> userDtoList);
+    List<User> toUsers(List<UserDto> usersDto);
 
-    List<UserDto> fromUsers(List<User> userList);}
+    List<UserDto> fromUsers(List<User> users);
+}

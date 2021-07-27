@@ -2,52 +2,32 @@ package com.example.springrest2.controller;
 
 import com.example.springrest2.component.User;
 import com.example.springrest2.controller.dto.UserDto;
-import com.example.springrest2.controller.mapper.UserMapper;
+import com.example.springrest2.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("users")
 public class UserController {
 
-    private final List<User> users = new ArrayList<>();
-
-    {
-        users.add(new User(1L, "Александр"));
-        users.add(new User(2L, "Даниил"));
-        users.add(new User(3L, "Никита"));
-        users.add(new User(4L, "Сергей"));
-    }
+    private final UserServiceImpl userService;
 
     @GetMapping
-    public List<UserDto> findAllUsers() {
-        return users.stream().map(UserMapper.MAPPER::fromUser).collect(Collectors.toList());
-    }
+    public List<UserDto> findAllUsers() { return userService.findAllUsers();}
 
     @GetMapping(value = "/{id}")
-    public UserDto findUserById (@PathVariable Long id) {
-        return users.stream().filter(it -> it.getId().equals(id)).map(UserMapper.MAPPER::fromUser).findFirst().orElseThrow(() ->
-                new NoResultException("Пользователь с указанным id (" + id + ") не существует!"));
+    public UserDto findUserById(@PathVariable Long id) {
+        return userService.findUserById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping
-    public void addUser(@RequestBody UserDto userDto) {
-        users.add(UserMapper.MAPPER.toUser(userDto));
-    }
+    public User addUser(@RequestBody User user) { return userService.addUser(user); }
 
-    @GetMapping(value = "/delete/{id}")
-    public void deleteUserById (@PathVariable Long id) {
-        users.removeIf(it -> it.getId().equals(id));
-    }
-
-    @GetMapping("exception")
-    public void exception() {
-        throw new IllegalArgumentException("Пользователь с указанным id не существует!");
-    }
+    @DeleteMapping(value = "/del/{id}")
+    public void deleteUserById(@PathVariable Long id) { userService.deleteUserById(id); }
 }

@@ -1,15 +1,17 @@
 package com.example.springrest2.component;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "order_products")
-public class CartEntry {
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,6 @@ public class CartEntry {
     @Column (name = "quantity")
     private Long quantity;
 
-    @Column (name = "acquire_price")
-    private BigDecimal acquirePrice;
+    @Column (name = "last_price")
+    private double lastPrice;
 }
