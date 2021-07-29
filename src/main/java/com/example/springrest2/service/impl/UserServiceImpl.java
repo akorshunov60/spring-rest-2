@@ -39,6 +39,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto findUserByName(String name) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findUserByName(name));
+        if (userOptional.isEmpty()) {
+            return null;
+        }
+        User user = userOptional.get();
+        return UserMapper.USER_MAPPER.fromUser(user);
+    }
+
+    @Override
     public User addUser(User user) {
         return userRepository.save(user);
     }
@@ -47,15 +57,4 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
-
-//    @Override
-//    public ResponseEntity<Object> updUser(User user, Long id) {
-//        Optional<User> userOptional = userRepository.findById(id);
-//        if (userOptional.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        user.setId(id);
-//        userRepository.save(user);
-//        return ResponseEntity.ok().build();
-//    }
 }

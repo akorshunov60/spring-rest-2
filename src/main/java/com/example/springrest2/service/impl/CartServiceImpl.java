@@ -1,11 +1,8 @@
 package com.example.springrest2.service.impl;
 
 import com.example.springrest2.component.Cart;
-import com.example.springrest2.component.Product;
 import com.example.springrest2.controller.dto.CartDto;
-import com.example.springrest2.controller.dto.ProductDto;
 import com.example.springrest2.controller.mapper.CartMapper;
-import com.example.springrest2.controller.mapper.ProductMapper;
 import com.example.springrest2.repository.CartRepository;
 import com.example.springrest2.service.CartService;
 import lombok.RequiredArgsConstructor;

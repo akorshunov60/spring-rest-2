@@ -24,6 +24,9 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @GetMapping(value = "/find_by_name/{name}")
+    public UserDto findUserByName(@PathVariable String name) { return userService.findUserByName(name);}
+
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping
     public User addUser(@RequestBody User user) { return userService.addUser(user); }
