@@ -8,14 +8,12 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    ProductMapper MAPPER = Mappers.getMapper(ProductMapper.class);
 
-//    @Mapping(source = "name", target = "name")
+    ProductMapper Product_MAPPER = Mappers.getMapper(ProductMapper.class);
+
     Product toProduct(ProductDto productDto);
 
-    //При наличии аннотаций Mapping на методе toProduct, аннотация InheritInverseConfiguration будет производить обратную обработку этих правил.
-    //В отсутствии Mapping использовать InheritInverseConfiguration не обязательно
-//    @InheritInverseConfiguration
+
     ProductDto fromProduct(Product product);
 
     List<Product> toProducts(List<ProductDto> productDtoList);

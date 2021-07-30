@@ -1,9 +1,11 @@
 package com.example.springrest2.component;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -21,9 +23,9 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private double price;
 
-    public Product(Long id, String name, BigDecimal price) {
+    public Product(Long id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -41,5 +43,5 @@ public class Product {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private List<CartEntry> cartEntries;
+    private List<Cart> cartEntries;
 }

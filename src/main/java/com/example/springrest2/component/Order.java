@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -35,6 +33,10 @@ public class Order {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    private List<CartEntry> cartEntries;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Cart> cartEntries;
+
+    public Order(long id) {
+        this.id = id;
+    }
 }
