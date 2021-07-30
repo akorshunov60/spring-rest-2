@@ -11,9 +11,10 @@ public interface UserService {
 
     UserDto findUserById(Long id);
 
+    UserDto findUserByName(String name);
+
     User addUser(User user);
 
     void deleteUserById(Long id);
 
-//    ResponseEntity<Object> updUser(User user, Long id);
 }
