@@ -39,6 +39,17 @@ public class ProductSeviceImpl implements ProductService {
     }
 
     @Override
+    public ProductDto findProductByName(String name) {
+        Optional<Product> productOptional = Optional.ofNullable(productRepository
+                .findProductByName(name));
+        if (productOptional.isEmpty()) {
+            return null;
+        }
+        Product product = productOptional.get();
+        return ProductMapper.Product_MAPPER.fromProduct(product);
+    }
+
+    @Override
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }

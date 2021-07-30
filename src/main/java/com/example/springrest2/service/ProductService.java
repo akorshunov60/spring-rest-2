@@ -11,7 +11,9 @@ public interface ProductService {
 
     ProductDto findProductById(Long id);
 
-    Product addProduct (Product product);
+    ProductDto findProductByName(String name);
+
+    Product addProduct(Product product);
 
     void deleteProductById(Long id);
 }

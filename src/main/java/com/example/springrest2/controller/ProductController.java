@@ -26,12 +26,15 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
+    @GetMapping(value = "/find_by_name/{name}")
+    public ProductDto findProductByName(@PathVariable String name) { return productService.findProductByName(name);}
+
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping
-    public Product addUser(@RequestBody Product product) { return productService.addProduct(product); }
+    public Product addProduct(@RequestBody Product product) { return productService.addProduct(product); }
 
     @DeleteMapping(value = "/del/{id}")
-    public void deleteProductsById(@PathVariable Long id) {
+    public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
     }
 }
