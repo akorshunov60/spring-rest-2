@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("users")
-public class UserRestController {
+public class UserController {
 
     private final List<User> users = new ArrayList<>();
 
